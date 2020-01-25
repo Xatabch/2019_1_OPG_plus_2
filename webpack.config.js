@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const pug = require('./webpack/pug');
-const devserver = require('./webpack/devserver');
 const sass = require('./webpack/sass');
 const extractCSS = require('./webpack/css.extract');
 const images = require('./webpack/images');
@@ -39,7 +38,7 @@ const common = merge([
 
 const dev = {
     optimization: {
-        minimize: true,
+        minimize: false,
     },
     devtool: "eval",
 };
@@ -87,9 +86,9 @@ module.exports = function (env) {
     if (env === 'development') {
         return merge([
             common,
-            devserver(),
             sass(),
             bundleAnalyzer(),
+            extractCSS(),
             dev,
             devMode,
         ])
