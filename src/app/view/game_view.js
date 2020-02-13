@@ -34,38 +34,38 @@ export default class GameView extends NavigateMixinView(EventEmitterMixin(View))
 	}
 
 	onChangeTheme() {
-        let root = document.documentElement;
+		let root = document.documentElement;
 
-        let row = APP_PALETTES[Math.floor(Math.random() * APP_PALETTES.length)];
+		let row = APP_PALETTES[Math.floor(Math.random() * APP_PALETTES.length)];
 
-        let colors = [];
-        for (let r = 0; r < row.length; ++r) {
-            let lumSign = colorBrightness(row[r]) < 128 ? 1 : -1;
-            let variants = [row[r], colorLuminance(row[r], lumSign * 0.15), colorLuminance(row[r], lumSign * 0.4)];
+		let colors = [];
+		for (let r = 0; r < row.length; ++r) {
+			let lumSign = colorBrightness(row[r]) < 128 ? 1 : -1;
+			let variants = [row[r], colorLuminance(row[r], lumSign * 0.15), colorLuminance(row[r], lumSign * 0.4)];
 
-            for (let v = 0; v < variants.length; ++v) {
-                colors.push(`#${variants[v]}`);
-                let isDark = colorBrightness(variants[v]) < 128;
-                colors.push(isDark ? 'var(--light-text-color)' : 'var(--dark-text-color)');
-            }
-        }
+			for (let v = 0; v < variants.length; ++v) {
+				colors.push(`#${variants[v]}`);
+				let isDark = colorBrightness(variants[v]) < 128;
+				colors.push(isDark ? 'var(--light-text-color)' : 'var(--dark-text-color)');
+			}
+		}
 
-        let color_names = COLOR_NAMES;
+		let color_names = COLOR_NAMES;
 
-        setColors({root: root, colors: colors, variables: color_names});
-        window.localStorage.setItem('colors', JSON.stringify(colors));
-        window.localStorage.setItem('color_names', JSON.stringify(color_names));
+		setColors({root: root, colors: colors, variables: color_names});
+		window.localStorage.setItem('colors', JSON.stringify(colors));
+		window.localStorage.setItem('color_names', JSON.stringify(color_names));
 	}
 	
 	_createChangeListener() {
-        let night = this._root.querySelector('.night');
-        night.addEventListener('click', this.onChangeTheme, true);
-    }
+		let night = this._root.querySelector('.night');
+		night.addEventListener('click', this.onChangeTheme, true);
+	}
 
-    _removeChangeListener() {
-        let night = this._root.querySelector('.night');
-        night.removeEventListener('click', this.onChangeTheme, true);
-    }
+	_removeChangeListener() {
+		let night = this._root.querySelector('.night');
+		night.removeEventListener('click', this.onChangeTheme, true);
+	}
 
 	down(event) {
 		if (event.target.classList.contains('block') && !+event.target.dataset.isSet) {
@@ -178,9 +178,9 @@ export default class GameView extends NavigateMixinView(EventEmitterMixin(View))
 		const headBlock = this._root.querySelector('.head.head_theme_play');
 
 		genericBeforeEnd(headBlock,
-            menuTemplate({
-                modifiers: ['menu_theme_game'],
-            })
+			menuTemplate({
+				modifiers: ['menu_theme_game'],
+			})
 		);
 		
 		const menuBlock = this._root.querySelector('.menu.menu_theme_game');
@@ -188,16 +188,16 @@ export default class GameView extends NavigateMixinView(EventEmitterMixin(View))
 			backArrowTemplate({
 				modifiers: [],
 				hr: '/back',
-                dataset: '/back',
+				dataset: '/back',
 			}),
 			titleTemplate({
-                title: 'colors',
-                modifiers: ['title_theme_game'],
+				title: 'colors',
+				modifiers: ['title_theme_game'],
 			}),
 			themeTemplate({
-                modifiers: [],
-            }),
-        );
+				modifiers: [],
+			}),
+		);
 	}
 
 	_renderLeftPlayer(data) {
