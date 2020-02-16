@@ -181,20 +181,26 @@ export default class API {
 	/**
      * This method provides client with user data, matching required ID
      */
-	static getUser() {
+	static getUser(ctx) {
 		return new Promise((resolve, reject) => {
 			AjaxModule.doGet({
 				path: `${HOST}/api/user`,
 			})
 				.then(response => {
 					if (response.status !== 200) {
-						response.json().then(error => reject(error));
+						response.json().then(error => reject({
+							error,
+							ctx
+						}));
 					} else {
 						response.json().then(user => { resolve(user.data);});
 					}
 				})
 				.catch(error => {
-					reject(error);
+					reject({
+						error,
+						ctx
+					});
 				});
 		});
 	}

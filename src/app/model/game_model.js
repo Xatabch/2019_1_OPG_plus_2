@@ -1,7 +1,8 @@
 import Model from './model';
 import { EventEmitterMixin } from '../event_emitter';
 import Game from '../../modules/game';
-import User from '../../modules/user';
+import UserS, { User } from '../../modules/user';
+import { Player } from '../gameCore/Player';
 import API from '../../modules/API';
 import { INIT_EVENT, 
 		 END_DOWN_EVENT, 
@@ -9,7 +10,7 @@ import { INIT_EVENT,
 		 FINISH_STEP_EVENT,
 		 END_OVER_BLOCK_EVENT } from '../../modules/events';
 
-// import { SingleGame } from '../gameCore/Game';
+import { SingleGame } from '../gameCore/Game';
 
 export default class GameModel extends EventEmitterMixin(Model) {
 	constructor() {
@@ -17,19 +18,28 @@ export default class GameModel extends EventEmitterMixin(Model) {
 	}
 
 	init({root = {}} = {}) {
-		// this._game = new SingleGame();
-		this._game = new Game();
+		if (UserS.exists()) {
+			const firstPlayer = UserS;
+			const secondPlayer = new User({
+				avatar: '',
+				nickname: 'Enemy',
+				email: 'enemy@mail.ru',
+				score: 0,
+				game: 0,
+				win: 0,
+				lose: 0
+			});
+			this._game = new SingleGame([firstPlayer, secondPlayer]);
 
-		if (User.exist()) {
 			this.emit(INIT_EVENT, {
 				root: root, 
-				username: User._username,
-				avatar: User._avatar,
+				username: UserS._nickname,
+				avatar: UserS._avatar,
 				firstPlayer: this._game.getFirstPlayer(), 
 				disableBlocks: this._game.getDisableBlocks(),
 			});
 		} else {
-			API.getUser()
+			API.getUser(this)
 				.then((user) => {
 					User.set(user);
 					this.emit(INIT_EVENT, {
@@ -40,13 +50,42 @@ export default class GameModel extends EventEmitterMixin(Model) {
 						disableBlocks: this._game.getDisableBlocks(),
 					});
 				})
-				.catch(() => {
-					this.emit(INIT_EVENT, {
-						root: root, 
-						username: 'Player1',
-						firstPlayer: this._game.getFirstPlayer(), 
-						disableBlocks: this._game.getDisableBlocks(),
+				.catch((data) => {
+					debugger;
+					const firstPlayer = new User({
+						avatar: '',
+						nickname: 'Enemy1',
+						email: 'enemy@mail.ru',
+						score: 0,
+						game: 0,
+						win: 0,
+						lose: 0
 					});
+
+					const secondPlayer = new User({
+						avatar: '',
+						nickname: 'Enemy2',
+						email: 'enemy@mail.ru',
+						score: 0,
+						game: 0,
+						win: 0,
+						lose: 0
+					});
+					data.ctx._game = new SingleGame([firstPlayer, secondPlayer]);
+
+					data.ctx.emit(INIT_EVENT, {
+						root: root, 
+						username: UserS._nickname,
+						avatar: UserS._avatar,
+						firstPlayer: '', 
+						disableBlocks: [],
+					});
+					// this.emit(INIT_EVENT, {
+					// 	root: root, 
+					// 	username: 'Player1',
+					// 	firstPlayer: this._game.getFirstPlayer(), 
+					// 	disableBlocks: this._game.getDisableBlocks(),
+					// });
 				});
 		}
 	}

@@ -1,13 +1,13 @@
-import { User } from '../../modules/user';
-import { StringToIntBlock } from './Block';
+import { User, UserData } from '../../modules/user';
+import { StringBlock } from './Block';
 
-export class Player<B = StringToIntBlock> extends User {
-    public symbol: string;
+export class Player<B = StringBlock> extends User {
+    public stepSymbol: string;
     protected steps: B[] = [];
 
-    constructor(symbol: string) {
-        super();
-        this.symbol = symbol;
+    constructor(data: UserData, symbol: string) {
+        super(data);
+        this.stepSymbol = symbol;
     }
 
     get lastStep(): B {

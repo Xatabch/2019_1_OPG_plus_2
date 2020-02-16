@@ -1,5 +1,11 @@
-import { Coordinates } from './Coordinates';
+import { Cordinates } from './Cordinates';
+import { StringBlock } from './Block';  
 import { Player } from './Player';
+
+export type FieldSize = {
+    width: number;
+    height: number;
+}
 
 export interface IField {
     matrix: string[][];
@@ -9,12 +15,12 @@ export interface IField {
     /**
      * Сделать шаг игроком
      */
-    setStep(coordinates: Coordinates, player: Player): any;
+    setStep(cordinates: Cordinates, player: Player): any;
 
     /**
      * Возвращает ячейку из матрицы ходов
      */
-    getCell(coordinates: Coordinates): string;
+    getCell(cordinates: Cordinates): string;
 }
 
 export class Field implements IField {
@@ -25,10 +31,20 @@ export class Field implements IField {
                                  ['*', '*', '*', '*', '*']];
     public width: number = 5;
     public height: number = 5;
+    private disableBlocks: StringBlock[] = [];
 
-    setStep(coordinates: Coordinates, player: Player): boolean {
-        if (this.matrix[coordinates.x][coordinates.y] === '*') {
-            this.matrix[coordinates.x][coordinates.y] = player.symbol;
+    constructor(width: number = 5, height: number = 5) {
+        this.matrix = [...Array(width)].map(() => 
+                                    [...Array(height)].map(() => '*'));
+        this.width = width;
+        this.height = height;
+    }
+
+    setStep(cordinates: Cordinates, player: Player): boolean {
+        const {x, y} = cordinates;
+
+        if (this.matrix[y][x] === '*') {
+            this.matrix[y][x] = player.stepSymbol;
 
             return true;
         }
@@ -36,7 +52,29 @@ export class Field implements IField {
         return false;
     }
 
-    getCell(coordinates: Coordinates): string {
-        return this.matrix[coordinates.x][coordinates.y];
+    set setDisableBlocks(blocks: StringBlock[]) {
+        blocks.forEach(block => {
+            const {x, y} = block.getCordinates(this.widthAndHeight);
+            this.matrix[y][x] = 'd'; 
+        })
+
+        this.disableBlocks = blocks;
+    }
+
+    get getDisableBlocks(): StringBlock[] {
+        return this.disableBlocks;
+    }
+
+    getCell(cordinates: Cordinates): string {
+        const {x, y} = cordinates;
+
+        return this.matrix[x][y];
+    }
+
+    get widthAndHeight(): FieldSize {
+        return {
+            width: this.width,
+            height: this.height
+        }
     }
 }
