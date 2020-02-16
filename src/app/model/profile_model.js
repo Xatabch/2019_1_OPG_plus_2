@@ -1,7 +1,7 @@
 import Model from './model';
 import {EventEmitterMixin} from '../event_emitter';
 import API from '../../modules/API';
-import User from '../../modules/user.js';
+import User from '../../modules/user';
 import {INIT_ERROR_EVENT, INIT_EVENT, LOGOUTED_EVENT} from '../../modules/events';
 
 export default class ProfileModel extends EventEmitterMixin(Model) {

@@ -1,7 +1,7 @@
 import Model from './model';
 import { EventEmitterMixin } from '../event_emitter';
 import Game from '../../modules/game';
-import User from '../../modules/user.js';
+import User from '../../modules/user';
 import API from '../../modules/API';
 import { INIT_EVENT, 
          START_GAME,

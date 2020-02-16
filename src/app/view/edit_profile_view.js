@@ -16,7 +16,7 @@ import submitTemplate from '../../blocks/html/body/application/container/content
 import formTemplate from '../../blocks/html/body/application/container/content/forms/form/form.pug';
 
 import View from './view';
-import User from '../../modules/user.js';
+import User from '../../modules/user';
 import { genericBeforeEnd } from '../../modules/helpers.js';
 import { EventEmitterMixin } from '../event_emitter';
 import { NavigateMixinView } from '../navigate_view';

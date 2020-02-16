@@ -10,6 +10,8 @@ const extractCSS = require('./webpack/css.extract');
 const images = require('./webpack/images');
 const babel = require('./webpack/babel');
 
+const { CheckerPlugin } = require('awesome-typescript-loader');
+
 const PATHS = {
 	source: path.join(__dirname, 'src'),
 	build: path.join(__dirname, 'build')
@@ -29,7 +31,17 @@ const common = merge([
 				template: PATHS.source + '/index.pug',
 				inject: false,
 			}),
+			new CheckerPlugin()
 		],
+		resolve: {
+			extensions: ['.ts', '.tsx', '.js', '.jsx']
+		},
+		module: {
+			rules: [{
+				test: /\.tsx?$/,
+				loader: 'awesome-typescript-loader'
+			}]
+		},
 	},
 	pug(),
 	images(),

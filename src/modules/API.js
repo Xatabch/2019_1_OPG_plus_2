@@ -1,5 +1,5 @@
 import AjaxModule from './ajax.js';
-import User from './user.js';
+import User from './user';
 
 const ok = [200, 201, 203];
 

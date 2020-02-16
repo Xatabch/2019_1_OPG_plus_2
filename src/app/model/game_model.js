@@ -1,7 +1,7 @@
 import Model from './model';
 import { EventEmitterMixin } from '../event_emitter';
 import Game from '../../modules/game';
-import User from '../../modules/user.js';
+import User from '../../modules/user';
 import API from '../../modules/API';
 import { INIT_EVENT, 
 		 END_DOWN_EVENT, 
@@ -9,12 +9,15 @@ import { INIT_EVENT,
 		 FINISH_STEP_EVENT,
 		 END_OVER_BLOCK_EVENT } from '../../modules/events';
 
+// import { SingleGame } from '../gameCore/Game';
+
 export default class GameModel extends EventEmitterMixin(Model) {
 	constructor() {
 		super();
 	}
 
 	init({root = {}} = {}) {
+		// this._game = new SingleGame();
 		this._game = new Game();
 
 		if (User.exist()) {
