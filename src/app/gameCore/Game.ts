@@ -3,8 +3,7 @@ import {
     StringToIntBlock,
 } from './Block';
 
-import { 
-    IPlayer,
+import {
     Player 
 } from './Player';
 
@@ -18,12 +17,12 @@ export interface IGame {
     /**
      * Игроки
      */
-    players: IPlayer[];
+    players: Player[];
 
     /**
      * Тот, кто будет ходить первым
      */
-    whoseFirstStep: IPlayer;
+    whoseFirstStep: Player;
 
     /**
      * Заблокированные блоки
@@ -49,10 +48,10 @@ export interface IGame {
     doFinishStep(block: IBlock): boolean;
 } 
 
-export default class Game<B = StringToIntBlock, P = Player> implements IGame {
-    public players: P[];
-    public whoseFirstStep: P;
-    public disableBlocks: B[];
+export default class Game implements IGame {
+    public players: Player[];
+    public whoseFirstStep: Player;
+    public disableBlocks: StringToIntBlock[];
 
     // private startFlag: boolean;
     // private stopFlag: boolean;
@@ -61,7 +60,7 @@ export default class Game<B = StringToIntBlock, P = Player> implements IGame {
     // private fieldMatrix: IField;
     // private secondStepFlag: boolean;
 
-    constructor(players: P[], whoseFirstStep: P, disableBlocks: B[]) {
+    constructor(players: Player[], whoseFirstStep: Player, disableBlocks: StringToIntBlock[]) {
         this.players = players;
         this.whoseFirstStep = whoseFirstStep;
         this.disableBlocks = disableBlocks;
@@ -99,8 +98,8 @@ export default class Game<B = StringToIntBlock, P = Player> implements IGame {
 		return false;
     }
 
-    doOverStep(block: IBlock): boolean { return false; }
-    doFinishStep(block: IBlock): boolean { return false; }
+    doOverStep(block: StringToIntBlock): boolean { return false; }
+    doFinishStep(block: StringToIntBlock): boolean { return false; }
 
     // doOverStep(block: StringToIntBlock): boolean {
     //     if (this.startFlag) {

@@ -1,14 +1,12 @@
+import { User } from '../../modules/user';
 import { StringToIntBlock } from './Block';
 
-export interface IPlayer {}
-
-export class Player<B = StringToIntBlock> implements IPlayer {
-    public nickname: string;
+export class Player<B = StringToIntBlock> extends User {
     public symbol: string;
     protected steps: B[] = [];
 
-    constructor(nickname: string, symbol: string) {
-        this.nickname = nickname;
+    constructor(symbol: string) {
+        super();
         this.symbol = symbol;
     }
 

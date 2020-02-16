@@ -1,4 +1,4 @@
-type UserData = {
+export type UserData = {
 	avatar: string;
 	nickname: string;
 	email: string;
@@ -8,7 +8,7 @@ type UserData = {
 	lose: number;
 }
 
-interface IUser {
+export interface IUser {
 	avatar: string;
 	nickname: string;
 	email: string;
@@ -41,7 +41,7 @@ interface IUser {
 	clear(): any;
 }
 
-class User implements IUser {
+export class User implements IUser {
 	avatar: string;
 	nickname: string;
 	email: string;
@@ -50,14 +50,22 @@ class User implements IUser {
 	win: number;
 	lose: number;
 
-	constructor() {
-		this.avatar = '';
-		this.nickname = '';
-		this.email = '';
-		this.score = 0;
-		this.games = 0;
-		this.win = 0;
-		this.lose = 0;
+	constructor(data: UserData = {
+		avatar: '',
+		nickname: '',
+		email: '',
+		score: 0,
+		games: 0,
+		win: 0,
+		lose: 0
+	}) {
+		this.avatar = data.avatar;
+		this.nickname = data.nickname;
+		this.email = data.email;
+		this.score = data.score;
+		this.games = data.games;
+		this.win = data.win;
+		this.lose = data.lose;
 	}
 
 	exists(): boolean {
@@ -96,78 +104,10 @@ class User implements IUser {
 		this.lose = 0;
 	}
 }
-// /**
-//  * Singleton User structure that represents client
-//  */
-// class UserS {
-// 	/**
-// 	 * @constructor
-// 	 */
-// 	constructor() {
-// 		this._avatar = null;
-// 		this._username = null;
-// 		this._email = null;
-// 		this._score = null;
-// 		this._games = 0;
-// 		this._win = 0;
-// 		this._lose = 0;
-// 	}
-
-// 	/**
-// 	 * Checks whether user exists
-// 	 * @return {boolean}
-// 	 */
-// 	exist() {
-// 		return this._username && this._email;
-// 	}
-
-// 	/**
-// 	 * Returns User data
-// 	 * @return {{score: null, lose: number, username: null, games: number, win: number, email: null}}
-// 	 */
-// 	get() {
-// 		return {
-// 			avatar: this._avatar,
-// 			username: this._username,
-// 			email: this._email,
-// 			score: this._score,
-// 			games: this._games,
-// 			win: this._win,
-// 			lose: this._lose,
-// 		};
-// 	}
-
-// 	/**
-// 	 * Sets User data
-// 	 * @param data
-// 	 */
-// 	set(data) {
-// 		this._avatar = data.avatar;
-// 		this._username = data.username;
-// 		this._email = data.email;
-// 		this._score = data.score;
-// 		this._games = data.games;
-// 		this._win = data.win;
-// 		this._lose = data.lose;
-// 	}
-
-// 	/**
-// 	 * Clear User data
-// 	 */
-// 	clear() {
-// 		this._avatar = null;
-// 		this._username = null;
-// 		this._email = null;
-// 		this._score = null;
-// 		this._games = 0;
-// 		this._win = 0;
-// 		this._lose = 0;
-// 	}
-// }
 
 /**
- * Singleton variable that represents user
- * @type {UserS}
+ * Синглтон, который представляет пользователя сессии
+ * @type {User}
  */
 const user = new User();
 export default user;

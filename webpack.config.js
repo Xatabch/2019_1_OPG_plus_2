@@ -45,6 +45,7 @@ const common = merge([
 	},
 	pug(),
 	images(),
+	babel(),
 ]);
 
 const dev = {
@@ -89,7 +90,6 @@ module.exports = function (env) {
 		return merge([
 			common,
 			extractCSS(),
-			babel(),
 			prod,
 			prodMode,
 		]);
