@@ -39,8 +39,8 @@ export default class GameModel extends EventEmitterMixin(Model) {
 				disableBlocks: this._game.getDisableBlocks(),
 			});
 		} else {
-			API.getUser(this)
-				.then((user) => {
+			API.getUser()
+				.then(user => {
 					User.set(user);
 					this.emit(INIT_EVENT, {
 						root: root, 
@@ -50,8 +50,7 @@ export default class GameModel extends EventEmitterMixin(Model) {
 						disableBlocks: this._game.getDisableBlocks(),
 					});
 				})
-				.catch((data) => {
-					debugger;
+				.catch((function() {
 					const firstPlayer = new User({
 						avatar: '',
 						nickname: 'Enemy1',
@@ -71,9 +70,9 @@ export default class GameModel extends EventEmitterMixin(Model) {
 						win: 0,
 						lose: 0
 					});
-					data.ctx._game = new SingleGame([firstPlayer, secondPlayer]);
+					this._game = new SingleGame([firstPlayer, secondPlayer]);
 
-					data.ctx.emit(INIT_EVENT, {
+					this.emit(INIT_EVENT, {
 						root: root, 
 						username: UserS._nickname,
 						avatar: UserS._avatar,
@@ -86,7 +85,7 @@ export default class GameModel extends EventEmitterMixin(Model) {
 					// 	firstPlayer: this._game.getFirstPlayer(), 
 					// 	disableBlocks: this._game.getDisableBlocks(),
 					// });
-				});
+				}).bind(this));
 		}
 	}
 
