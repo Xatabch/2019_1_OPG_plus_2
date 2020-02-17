@@ -10,7 +10,7 @@ import { INIT_EVENT,
 		 FINISH_STEP_EVENT,
 		 END_OVER_BLOCK_EVENT } from '../../modules/events';
 
-import { SingleGame } from '../gameCore/Game';
+import { SingleGame } from '../gameCore/game';
 
 export default class GameModel extends EventEmitterMixin(Model) {
 	constructor() {

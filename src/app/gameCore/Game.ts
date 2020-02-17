@@ -1,20 +1,20 @@
 import {
     IBlock,
     StringBlock,
-} from './Block';
+} from './block';
 
 import {
     Player 
-} from './Player';
+} from './player';
 
 import { User } from '../../modules/user'; 
 
-import { Cordinates } from './Cordinates';
+import { Cordinates } from './cordinates';
 import {
     FieldSize,
     IField,
     Field
-} from './Field';
+} from './field';
 
 const MIN_DISABLE_BLOCKS = 2;
 const MAX_FREE_BLOCKS = 10;

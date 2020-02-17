@@ -1,5 +1,5 @@
 import { User, UserData } from '../../modules/user';
-import { StringBlock } from './Block';
+import { StringBlock } from './block';
 
 export class Player<B = StringBlock> extends User {
     public stepSymbol: string;

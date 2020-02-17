@@ -1,6 +1,6 @@
-import { Cordinates } from './Cordinates';
-import { StringBlock } from './Block';  
-import { Player } from './Player';
+import { Cordinates } from './cordinates';
+import { StringBlock } from './block';  
+import { Player } from './player';
 
 export type FieldSize = {
     width: number;
