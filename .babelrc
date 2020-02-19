@@ -4,8 +4,7 @@
       "targets": {
         "browsers": ["last 2 versions"]
       }
-    }],
-    "@babel/preset-typescript"
+    }]
   ],
   "plugins": [
     "@babel/plugin-proposal-export-default-from",

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack --env production && node server",
     "build": "webpack --watch --env development",
-    "test": "jest --coverage",
+    "test": "jest",
     "serv": "node server",
     "lint": "eslint -c .eslintrc.json --fix src/"
   },
@@ -43,7 +43,6 @@
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-proposal-export-default-from": "^7.8.3",
     "@babel/preset-env": "^7.4.3",
-    "@babel/preset-typescript": "^7.8.3",
     "@types/jest": "^25.1.2",
     "autoprefixer": "^9.5.1",
     "awesome-typescript-loader": "^5.2.1",
@@ -54,10 +53,22 @@
     "mini-css-extract-plugin": "^0.5.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
+    "ts-jest": "^25.2.0",
     "typescript": "^3.7.5",
     "url-loader": "^1.1.2",
     "webpack": "^4.30.0",
     "workbox-webpack-plugin": "^4.2.0",
     "worker-loader": "^2.0.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.ts?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(js?|ts?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ]
   }
 }

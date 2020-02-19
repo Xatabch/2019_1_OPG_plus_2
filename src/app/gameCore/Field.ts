@@ -68,7 +68,13 @@ export class Field implements IField {
     getCell(cordinates: Cordinates): string {
         const {x, y} = cordinates;
 
-        return this.matrix[x][y];
+        return this.matrix[y][x];
+    }
+
+    getCellByBlock(block: StringBlock) {
+        const {x, y} = block.getCordinates(this.widthAndHeight);
+
+        return this.matrix[y][x];
     }
 
     get widthAndHeight(): FieldSize {
