@@ -74,6 +74,19 @@ describe('Тесты на класс Field', () => {
             expect(canStep).toBeFalsy();
             expect(field.matrix[coordinates.y][coordinates.x]).toBe(DISABLE_BLOCK_SYMBOL);
         });
+
+        test(`При попытке сходить на ячейку, которой не существует вернется false`, () => {
+            const player = new Player(USER_DATA, STEP_SYMBOL);
+            const field = new Field(FIELD_WIDTH, FIELD_HEIGHT);
+            const coordinates: Cordinates = {
+                x: -1,
+                y: -1
+            }
+
+            const canStep = field.setStep(coordinates, player);
+
+            expect(canStep).toBeFalsy();
+        });
     });
 
     describe('Тесты на метод getCell и getCellByBlock', () => {

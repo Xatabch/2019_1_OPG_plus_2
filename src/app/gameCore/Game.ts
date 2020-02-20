@@ -19,6 +19,12 @@ import {
 const MIN_DISABLE_BLOCKS = 2;
 const MAX_FREE_BLOCKS = 10;
 
+export class Test {
+    doSmth(a: any) {
+        console.log(a);
+    }
+}
+
 export interface IGame {
     /**
      * Игроки
@@ -73,9 +79,9 @@ export class SingleGame implements IGame {
         if (!this.startFlag) {
             const coordinates = block.getCordinates(this.fieldMatrix.widthAndHeight);
 			const isCanSet = this.fieldMatrix.setStep(coordinates, this.whoseTurn);
-            this.steps.push(block);
 
             if (isCanSet) {
+                this.steps.push(block);
                 this.startFlag = true;
             }
 
@@ -191,6 +197,10 @@ export class SingleGame implements IGame {
 
 
 		return firstPart === secondPart;
+    }
+
+    get disableBlocks(): StringBlock[] {
+        return this.fieldMatrix.getDisableBlocks;
     }
 
     // /**

@@ -43,7 +43,7 @@ export class Field implements IField {
     setStep(cordinates: Cordinates, player: Player): boolean {
         const {x, y} = cordinates;
 
-        if (this.matrix[y][x] === '*') {
+        if (x > 0 && y > 0 && this.matrix[y][x] === '*') {
             this.matrix[y][x] = player.stepSymbol;
 
             return true;

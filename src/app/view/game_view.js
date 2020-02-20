@@ -22,7 +22,7 @@ import { debounce, throttle } from '../../modules/helpers.js';
 import { DOWN_EVENT, 
 		 UP_BLOCK_EVENT,
 		 OVER_BLOCK_EVENT } from '../../modules/events';
-import {APP_PALETTES, COLOR_NAMES} from '../../modules/utils';
+import { APP_PALETTES, COLOR_NAMES } from '../../modules/utils';
 
 export default class GameView extends NavigateMixinView(EventEmitterMixin(View)) {
 	constructor() {
@@ -70,7 +70,7 @@ export default class GameView extends NavigateMixinView(EventEmitterMixin(View))
 	down(event) {
 		if (event.target.classList.contains('block') && !+event.target.dataset.isSet) {
 			const app = document.querySelector('#application');
-			app.addEventListener('pointermove', this.over, true);
+			// app.addEventListener('pointermove', this.over, true);
 			this._currentBlock = event.target;
 			this.emit(DOWN_EVENT, {block: event.target.textContent});
 		}

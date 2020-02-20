@@ -44,8 +44,7 @@ const common = merge([
 		},
 	},
 	pug(),
-	images(),
-	babel(),
+	images()
 ]);
 
 const dev = {

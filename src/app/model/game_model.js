@@ -11,12 +11,14 @@ import { INIT_EVENT,
 		 END_OVER_BLOCK_EVENT } from '../../modules/events';
 
 import { SingleGame } from '../gameCore/game';
+import { ClassLogger } from '../../modules/logger';
+import { StringBlock } from '../gameCore/block';
 
 export default class GameModel extends EventEmitterMixin(Model) {
 	constructor() {
 		super();
 	}
-
+	
 	init({root = {}} = {}) {
 		if (UserS.exists()) {
 			const firstPlayer = UserS;
@@ -29,7 +31,8 @@ export default class GameModel extends EventEmitterMixin(Model) {
 				win: 0,
 				lose: 0
 			});
-			this._game = new SingleGame([firstPlayer, secondPlayer]);
+			const gameWithLogger = new ClassLogger(SingleGame);
+			this._game = new gameWithLogger([firstPlayer, secondPlayer])('doStartStep');
 
 			this.emit(INIT_EVENT, {
 				root: root, 
@@ -70,28 +73,25 @@ export default class GameModel extends EventEmitterMixin(Model) {
 						win: 0,
 						lose: 0
 					});
-					this._game = new SingleGame([firstPlayer, secondPlayer]);
+
+					const gameWithLogger = ClassLogger(SingleGame);
+					this._game = new gameWithLogger([firstPlayer, secondPlayer])(['doStartStep', 'fieldMatrix.matrix']);
 
 					this.emit(INIT_EVENT, {
 						root: root, 
 						username: UserS._nickname,
 						avatar: UserS._avatar,
 						firstPlayer: '', 
-						disableBlocks: [],
+						disableBlocks: this._game.disableBlocks,
 					});
-					// this.emit(INIT_EVENT, {
-					// 	root: root, 
-					// 	username: 'Player1',
-					// 	firstPlayer: this._game.getFirstPlayer(), 
-					// 	disableBlocks: this._game.getDisableBlocks(),
-					// });
 				}).bind(this));
 		}
 	}
 
 	doStartStep({block = null} = {}) {
-		let ans = this._game.doStartStep({block});
-		this.emit(END_DOWN_EVENT, {player: this._game.getWhoseTurn(), ans: ans});
+		block = new StringBlock(block);
+		let ans = this._game.doStartStep(block);
+		this.emit(END_DOWN_EVENT, {player: '', ans: ans});
 	}
 
 	doOverStep({block = null} = {}) {
@@ -100,17 +100,17 @@ export default class GameModel extends EventEmitterMixin(Model) {
 	}
 
 	doFinishStep({block = null} = {}) {
-		this._game.doFinishStep({block}); // вернет true, если ход можно закончить
-		let isWinner = this._game.isWinner(); // возвращает true если был win condition
-		if (isWinner) { // если ход можно закончить и победитель существует
-			// издать событие конца игры
-			this.emit(FINISH_GAME_EVENT, {
-				winner: this._game.getWinner()}); // по окончании игры нам надо знать победителя
-		} else { // если ход можно закончить
-			// издать событие конца хода
-			this.emit(FINISH_STEP_EVENT, {player: this._game.getWhoseTurn()}); // по окончании хода, 
-			// нам надо знать, 
-			// чей сейчас ход и можно ли его завершить
-		}
+		// this._game.doFinishStep({block}); // вернет true, если ход можно закончить
+		// let isWinner = this._game.isWinner(); // возвращает true если был win condition
+		// if (isWinner) { // если ход можно закончить и победитель существует
+		// 	// издать событие конца игры
+		// 	this.emit(FINISH_GAME_EVENT, {
+		// 		winner: this._game.getWinner()}); // по окончании игры нам надо знать победителя
+		// } else { // если ход можно закончить
+		// 	// издать событие конца хода
+		// 	this.emit(FINISH_STEP_EVENT, {player: this._game.getWhoseTurn()}); // по окончании хода, 
+		// 	// нам надо знать, 
+		// 	// чей сейчас ход и можно ли его завершить
+		// }
 	}
 }
