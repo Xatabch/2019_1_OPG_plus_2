@@ -547,6 +547,6 @@ export default class Game {
 		blocks.forEach(block => {
 			let coords = this.getCoordinates({block: block});
 			this.setStep({coordinates: coords});
-		})
+		});
 	}
 }

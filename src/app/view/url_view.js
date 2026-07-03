@@ -10,6 +10,8 @@ import sumbitTemplate from '../../blocks/html/body/application/container/content
 import buttonTemplate from '../../blocks/html/body/application/container/content/buttons/button/button.pug';
 import errorTemplate from '../../blocks/html/body/application/container/content/forms/error/error.pug';
 
+import { MY_HOST } from '../../config.js';
+
 import { genericBeforeEnd } from '../../modules/helpers.js';
 import { EventEmitterMixin } from '../event_emitter';
 import { NavigateMixinView } from '../navigate_view';
@@ -17,28 +19,28 @@ import View from './view';
 import { GENERATE_URL_EVENT, 
 		 START_GAME 
 	   } from '../../modules/events';
-import {copyToClipboard} from "../../modules/helpers";
+import {copyToClipboard} from '../../modules/helpers';
 
 export default class UrlView extends NavigateMixinView(EventEmitterMixin(View)) {
 	constructor() {
-        super();
-        this.onGenerateUrl = this.onGenerateUrl.bind(this);
+		super();
+		this.onGenerateUrl = this.onGenerateUrl.bind(this);
 		this.onFormSubmit = this.onFormSubmit.bind(this);
-    }
+	}
     
-    onGenerateUrl() {
-        this.emit(GENERATE_URL_EVENT);
-    }
+	onGenerateUrl() {
+		this.emit(GENERATE_URL_EVENT);
+	}
 
-    _createGenerateListener() {
-        const buttonBlock = this._root.querySelector('.button.button_type_primary');
-        buttonBlock.addEventListener('click', this.onGenerateUrl, false);
-    }
+	_createGenerateListener() {
+		const buttonBlock = this._root.querySelector('.button.button_type_primary');
+		buttonBlock.addEventListener('click', this.onGenerateUrl, false);
+	}
 
-    _removeGenerateListener() {
-        const buttonBlock = this._root.querySelector('.button.button_type_primary');
-        buttonBlock.removeEventListener('click', this.onGenerateUrl, false);
-    }
+	_removeGenerateListener() {
+		const buttonBlock = this._root.querySelector('.button.button_type_primary');
+		buttonBlock.removeEventListener('click', this.onGenerateUrl, false);
+	}
 
 	onFormSubmit(event) {
 		const formsBlock = this._root.querySelector('.forms');
@@ -58,13 +60,13 @@ export default class UrlView extends NavigateMixinView(EventEmitterMixin(View)) 
 
 	_createEventListeners() {
 		super._createEventListeners();
-        this._createSubmitListener();
-        this._createGenerateListener();
+		this._createSubmitListener();
+		this._createGenerateListener();
 	}
 
 	_removeEventListeners() {
-        super._removeEventListeners();
-        this._removeGenerateListener();
+		super._removeEventListeners();
+		this._removeGenerateListener();
 		this._removeSubmitListener();
 	}
 
@@ -125,7 +127,7 @@ export default class UrlView extends NavigateMixinView(EventEmitterMixin(View)) 
 				username: 'url',
 				placeholder: 'Link',
 				type: 'text',
-                value: `${data.id ? MY_HOST + '/multiplayer/' + data.id : ''}`,
+				value: `${data.id ? MY_HOST + '/multiplayer/' + data.id : ''}`,
 				req: true,
 				help: true,
 			}),
@@ -142,8 +144,8 @@ export default class UrlView extends NavigateMixinView(EventEmitterMixin(View)) 
 			buttonTemplate({
 				modifiers: ['button_type_primary'],
 				text: 'CREATE ROOM',
-            }),
-            sumbitTemplate({
+			}),
+			sumbitTemplate({
 				value: 'JOIN ROOM',
 				form: 'url',
 				modifiers: ['button_type_secondary'],
@@ -156,24 +158,24 @@ export default class UrlView extends NavigateMixinView(EventEmitterMixin(View)) 
 		let helpBlock = document.querySelector('.form__help');
 		helpBlock.classList.remove('help-hidden');
 
-		setTimeout(() => {helpBlock.classList.add('help-hidden')}, 5000);
+		setTimeout(() => {helpBlock.classList.add('help-hidden');}, 5000);
 	}
 
 	_render(data) {
-        if (data.isRender) {
-            this._root.innerHTML = '';
-            this._renderContainer(data);
-            this._renderMain();
-            this._renderBack();
-            this._renderContent();
-            this._renderForms(data);
-            this._renderButtons();
-        } else {
-            const formsBlock = document.querySelector('.forms');
-            formsBlock.innerHTML = '';
+		if (data.isRender) {
+			this._root.innerHTML = '';
+			this._renderContainer(data);
+			this._renderMain();
+			this._renderBack();
+			this._renderContent();
+			this._renderForms(data);
+			this._renderButtons();
+		} else {
+			const formsBlock = document.querySelector('.forms');
+			formsBlock.innerHTML = '';
 			this._renderForms(data);
 			this._renderHelp();
-        }
+		}
 	}
 
 	open({ root = {}, data = {} }) {
