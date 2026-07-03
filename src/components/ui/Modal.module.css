@@ -1,0 +1,41 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  animation: fadeIn 300ms ease-out;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 48px;
+  border-radius: 24px;
+  background: #ebebeb;
+  box-shadow: -10px -10px 30px #ffffff, 10px 10px 30px #cccccc;
+  animation: slideUp 300ms ease-out;
+  max-width: 90vw;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 600px) {
+  .content {
+    padding: 28px 32px;
+    margin: 16px;
+  }
+}

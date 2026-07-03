@@ -1,0 +1,91 @@
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: -5px -5px 15px #ffffff, 5px 5px 15px #cccccc;
+  margin-bottom: 12px;
+}
+
+.avatarPlaceholder {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: #5e747f;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  box-shadow: -5px -5px 15px #8fa5b0, 5px 5px 15px #364349;
+  margin-bottom: 12px;
+}
+
+.username {
+  margin: 0 0 24px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.stat {
+  background: #ebebeb;
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: inset -3px -3px 8px #ffffff, inset 3px 3px 8px #cccccc;
+}
+
+.statLabel {
+  display: block;
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.statValue {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #5e747f;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.settingsLink {
+  position: absolute;
+  top: 20px;
+  right: clamp(16px, 5vw, 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #ebebeb;
+  box-shadow: -3px -3px 8px #ffffff, 3px 3px 8px #cccccc;
+}
+
+.settingsLink img {
+  width: 22px;
+  height: 22px;
+  opacity: 0.7;
+}
+
+.profileCard {
+  position: relative;
+  width: min(400px, 90vw);
+}

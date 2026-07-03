@@ -1,0 +1,16 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(4px, 1.5vw, 14px);
+
+  width: min(514px, 92vw);
+  height: min(514px, 92vw);
+  touch-action: none;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: clamp(4px, 1.5vw, 14px);
+}

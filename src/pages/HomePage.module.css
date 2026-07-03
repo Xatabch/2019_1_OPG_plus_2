@@ -1,0 +1,42 @@
+.logo {
+  font-family: Roboto, sans-serif;
+  font-weight: 700;
+  font-size: clamp(3rem, 12vw, 5rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: clamp(80px, 20vw, 120px);
+  height: clamp(80px, 20vw, 120px);
+  border-radius: 100%;
+  box-shadow: -8px -8px 24px #ffffff, 8px 8px 24px #cccccc;
+  background: #ebebeb;
+  margin-bottom: 16px;
+  color: #5e747f;
+}
+
+.title {
+  margin: 0 0 8px;
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 700;
+  color: #333;
+}
+
+.subtitle {
+  margin: 0 0 40px;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: min(320px, 90vw);
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}

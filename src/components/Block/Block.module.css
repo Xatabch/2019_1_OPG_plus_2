@@ -1,0 +1,57 @@
+.block {
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+
+  width: clamp(48px, 14vw, 90px);
+  height: clamp(48px, 14vw, 90px);
+
+  border: 0.5px solid #e6e6e6;
+  background: #ebebeb;
+  box-shadow: -5px -5px 16px #fcfcfc, 5px 5px 16px #bfbfbf;
+  border-radius: 20px;
+
+  transition: background 300ms, box-shadow 300ms, transform 200ms;
+}
+
+.block:focus-visible {
+  outline: 2px solid #5e747f;
+  outline-offset: 2px;
+}
+
+.leftPlayer {
+  background: #e5c1bd;
+  box-shadow: inset -5px -5px 15px #f3dad8, inset 5px 5px 15px #c5766d;
+}
+
+.rightPlayer {
+  background: #5e747f;
+  box-shadow: inset -5px -5px 10px #7e94a0, inset 5px 5px 10px #364349;
+}
+
+.disabled {
+  background: gray;
+  cursor: not-allowed;
+  box-shadow: inset -5px -5px 10px #8e8e8e, inset 5px 5px 10px #3b3b3b;
+}
+
+.newCell {
+  animation: fillCell 300ms ease-out;
+}
+
+@keyframes fillCell {
+  from {
+    transform: scale(0.85);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .block {
+    border-radius: 12px;
+  }
+}
