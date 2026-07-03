@@ -13,14 +13,14 @@ export default class ProfileModel extends EventEmitterMixin(Model) {
 		// if (User.exist()) {
 		// 	this.emit(INIT_EVENT, {root: root, data: User.get()});
 		// } else {
-			API.getUser()
-				.then((user) => {
-					User.set(user);
-					this.emit(INIT_EVENT, {root: root, data: user});
-				})
-				.catch(() => {
-					this.emit(INIT_ERROR_EVENT);
-				});
+		API.getUser()
+			.then((user) => {
+				User.set(user);
+				this.emit(INIT_EVENT, {root: root, data: user});
+			})
+			.catch(() => {
+				this.emit(INIT_ERROR_EVENT);
+			});
 		// }
 	}
 

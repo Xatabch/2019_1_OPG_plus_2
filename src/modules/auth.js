@@ -1,5 +1,6 @@
 import AjaxModule from './ajax.js';
 import User from './user.js';
+import { HOST } from '../config.js';
 
 export default class Auth {
 	static isAuth() {
@@ -13,7 +14,7 @@ export default class Auth {
 						reject(null);
 					}
 				},
-				path: 'https://api.colors-game.ru/api/session',
+				path: `${HOST}/api/session`,
 			});
 		});
 	}

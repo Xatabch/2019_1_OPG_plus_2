@@ -1,24 +1,22 @@
-'use strict';
+import express from 'express';
+import morgan from 'morgan';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const express = require('express');
-const morgan = require('morgan');
-const path = require('path');
-// const fallback = require('express-history-api-fallback');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const distPath = path.resolve(__dirname, '..', 'dist');
+
 const app = express();
-const root = path.resolve(__dirname, '..', 'build');
+
 app.use(morgan('dev'));
-app.use(express.static(path.resolve(__dirname, '..', 'build')));
-app.get('*', (req, res) => {
-    // if (req.path === "/sw.js"){
-    //     res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
-    //     res.sendFile(path.join(__dirname, '../build/js/sw.js'));
-    //     return;
-    // }
-    res.sendFile(path.join(__dirname, '../build/index.html'));
+app.use(express.static(distPath));
+
+app.get('/{*splat}', (_req, res) => {
+	res.sendFile(path.join(distPath, 'index.html'));
 });
 
-const port = process.env.PORT || 8001;
+const port = Number(process.env.PORT) || 8001;
 
-app.listen(port, function () {
-    console.log(`Server listening port ${port}`);
+app.listen(port, () => {
+	console.log(`Server listening on port ${port}`);
 });

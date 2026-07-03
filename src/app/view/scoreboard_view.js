@@ -13,6 +13,8 @@ import { GET_NEXT_PAGE_EVENT } from '../../modules/events';
 import Paginate from '../component/paginate';
 import View from './view';
 
+import { HOST } from '../../config.js';
+
 export default class ScoreBoardView extends NavigateMixinView(EventEmitterMixin(View)) {
 	constructor() {
 		super();

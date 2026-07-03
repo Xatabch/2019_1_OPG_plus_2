@@ -13,6 +13,8 @@ import editIconTemplate
 import buttonsTemplate from '../../blocks/html/body/application/container/content/buttons/buttons.pug';
 import submitTemplate from '../../blocks/html/body/application/container/content/buttons/submit/submit.pug';
 
+import { HOST } from '../../config.js';
+
 import formTemplate from '../../blocks/html/body/application/container/content/forms/form/form.pug';
 
 import View from './view';

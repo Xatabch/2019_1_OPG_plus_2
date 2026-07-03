@@ -1,5 +1,6 @@
 import AjaxModule from './ajax.js';
 import User from './user.js';
+import { HOST, HOST_MULTIPLAYER } from '../config.js';
 
 const ok = [200, 201, 203];
 
@@ -51,13 +52,13 @@ export default class API {
 		return AjaxModule.doGet({
 			path: `${HOST_MULTIPLAYER}/new_room`,
 		})
-		.then(response => {
-			if (!ok.includes(response.status)) {
-				throw response;
-			} else {
-				return response.json();
-			}
-		})
+			.then(response => {
+				if (!ok.includes(response.status)) {
+					throw response;
+				} else {
+					return response.json();
+				}
+			});
 	}
 
 	/**

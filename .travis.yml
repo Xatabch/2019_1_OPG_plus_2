@@ -1,8 +1,7 @@
-sudo: false
-
 language: node_js
+
 node_js:
-  - node
+  - "22"
 
 deploy:
   - provider: script
@@ -11,13 +10,12 @@ deploy:
     on:
       branch: production
 
-#cache: npm
+install:
+  - npm ci
 
-#install:
-#  - npm install
-
-script: true
+script:
+  - npm run lint
+  - npm run build
 
 before_install:
-  openssl aes-256-cbc -K $encrypted_4d501252f38a_key -iv $encrypted_4d501252f38a_iv -in deploy_key_production.enc -out deploy_key_production -d
-
+  - openssl aes-256-cbc -K $encrypted_4d501252f38a_key -iv $encrypted_4d501252f38a_iv -in deploy_key_production.enc -out deploy_key_production -d
