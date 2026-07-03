@@ -1,0 +1,55 @@
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.button {
+  font-family: Roboto, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #ebebeb;
+  color: #333;
+  cursor: pointer;
+  box-shadow: -3px -3px 8px #ffffff, 3px 3px 8px #cccccc;
+  transition: all 200ms;
+}
+
+.button:hover {
+  box-shadow: -2px -2px 6px #ffffff, 2px 2px 6px #bbbbbb;
+}
+
+.button:active {
+  box-shadow: inset -2px -2px 6px #ffffff, inset 2px 2px 6px #cccccc;
+}
+
+.modeToggle {
+  display: flex;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: -3px -3px 8px #ffffff, 3px 3px 8px #cccccc;
+}
+
+.modeButton {
+  font-family: Roboto, sans-serif;
+  font-size: 0.85rem;
+  padding: 10px 16px;
+  border: none;
+  background: #ebebeb;
+  color: #666;
+  cursor: pointer;
+  transition: all 200ms;
+}
+
+.modeButton.active {
+  background: #5e747f;
+  color: #fff;
+}
+
+.modeButton:hover:not(.active) {
+  background: #e0e0e0;
+}

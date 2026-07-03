@@ -22,12 +22,12 @@ https://github.com/go-park-mail-ru/2019_1_OPG_plus_2
 
 ## Стек
 
+- **React 19** + **TypeScript**
 - **Vite 7** — сборка и dev-сервер
-- **Vanilla JS (ESM)** — SPA с MVC-архитектурой
-- **Pug** — шаблоны компонентов
-- **Sass** — стили (BEM)
+- **React Router 7** — маршрутизация SPA
+- **CSS Modules** — neumorphic-дизайн из [colors](https://github.com/Xatabch/colors)
 - **Express 5** — раздача production-сборки
-- **ESLint 9** — линтинг (flat config)
+- **ESLint 9** + **TypeScript** — линтинг и проверка типов
 
 ## Требования
 
@@ -52,7 +52,7 @@ Dev-сервер: http://localhost:5173
 | `npm run preview` | Предпросмотр production-сборки |
 | `npm start` | Сборка + Express-сервер (порт 8001) |
 | `npm run serve` | Только Express-сервер |
-| `npm run lint` | ESLint |
+| `npm run lint` | ESLint + TypeScript |
 
 ## Переменные окружения
 

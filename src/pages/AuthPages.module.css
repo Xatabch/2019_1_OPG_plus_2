@@ -1,0 +1,34 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: min(360px, 90vw);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.error {
+  color: #c5766d;
+  text-align: center;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.linkRow {
+  text-align: center;
+  margin-top: 8px;
+}
+
+.linkRow a {
+  color: #5e747f;
+  font-weight: 500;
+}
+
+.linkRow a:hover {
+  text-decoration: underline;
+}

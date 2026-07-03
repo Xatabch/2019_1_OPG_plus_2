@@ -1,0 +1,88 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  animation: fadeIn 300ms ease-out;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 48px;
+  border-radius: 24px;
+  background: #ebebeb;
+  box-shadow: -10px -10px 30px #ffffff, 10px 10px 30px #cccccc;
+  animation: slideUp 300ms ease-out;
+}
+
+.badge {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Roboto, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.leftWinner {
+  background: #e5c1bd;
+  box-shadow: inset -4px -4px 12px #f3dad8, inset 4px 4px 12px #c5766d;
+  color: #5a3a35;
+}
+
+.rightWinner {
+  background: #5e747f;
+  box-shadow: inset -4px -4px 12px #7e94a0, inset 4px 4px 12px #364349;
+}
+
+.title {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.button {
+  font-family: Roboto, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 14px;
+  background: #5e747f;
+  color: #fff;
+  cursor: pointer;
+  transition: all 200ms;
+}
+
+.button:hover {
+  background: #4d616b;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 28px 32px;
+    margin: 16px;
+  }
+}

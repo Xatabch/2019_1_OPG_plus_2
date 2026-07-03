@@ -1,0 +1,30 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: min(400px, 90vw);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.help {
+  font-size: 0.85rem;
+  color: #5e747f;
+  text-align: center;
+  animation: fadeIn 300ms;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.error {
+  color: #c5766d;
+  text-align: center;
+  margin: 0;
+}

@@ -1,0 +1,21 @@
+.card {
+  background: #ebebeb;
+  border-radius: 24px;
+  padding: clamp(24px, 5vw, 40px);
+  box-shadow: -10px -10px 30px #ffffff, 10px 10px 30px #cccccc;
+}
+
+.title {
+  margin: 0 0 24px;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 700;
+  text-align: center;
+  color: #333;
+  letter-spacing: 0.05em;
+}
+
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

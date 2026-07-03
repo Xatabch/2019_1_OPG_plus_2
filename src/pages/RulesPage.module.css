@@ -1,0 +1,13 @@
+.rulesImage {
+  width: min(600px, 90vw);
+  border-radius: 16px;
+  box-shadow: -6px -6px 20px #ffffff, 6px 6px 20px #cccccc;
+}
+
+.text {
+  max-width: 560px;
+  color: #666;
+  line-height: 1.6;
+  text-align: center;
+  margin: 0 0 24px;
+}

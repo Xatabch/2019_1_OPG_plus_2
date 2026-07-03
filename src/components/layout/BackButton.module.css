@@ -1,0 +1,23 @@
+.back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: #ebebeb;
+  color: #333;
+  cursor: pointer;
+  box-shadow: -3px -3px 8px #ffffff, 3px 3px 8px #cccccc;
+  transition: all 200ms;
+  font-size: 1.2rem;
+}
+
+.back:hover {
+  box-shadow: -2px -2px 6px #ffffff, 2px 2px 6px #bbbbbb;
+}
+
+.back:active {
+  box-shadow: inset -2px -2px 6px #ffffff, inset 2px 2px 6px #cccccc;
+}

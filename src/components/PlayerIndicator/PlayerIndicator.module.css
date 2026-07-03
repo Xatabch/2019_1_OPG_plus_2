@@ -1,0 +1,62 @@
+.indicator {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 2.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  box-shadow: -5px -5px 15px #ffffff, 5px 5px 15px #cccccc;
+  background: #ebebeb;
+  transition: all 190ms;
+  flex-shrink: 0;
+}
+
+.logo.leftPlayer {
+  box-shadow: -5px -5px 15px #f6eae9, 5px 5px 15px #d49891;
+}
+
+.logo.rightPlayer {
+  box-shadow: -5px -5px 15px #8fa5b0, 5px 5px 15px #3a4a52;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.subtitle {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  font-size: 1rem;
+  color: #666;
+}
+
+@media (max-width: 600px) {
+  .logo {
+    width: 48px;
+    height: 48px;
+    font-size: 1.8rem;
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+}

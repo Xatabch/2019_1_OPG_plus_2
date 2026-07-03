@@ -1,0 +1,40 @@
+.gameArea {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.players {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.playerBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.playerAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: -2px -2px 6px #ffffff, 2px 2px 6px #cccccc;
+}
+
+.waitText {
+  font-size: 1.1rem;
+  color: #333;
+  margin: 0;
+}
+
+.scoreChange {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #5e747f;
+  margin: 0;
+}

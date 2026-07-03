@@ -1,0 +1,40 @@
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 12px;
+  background: #ebebeb;
+  color: #333;
+  font-size: 1rem;
+  box-shadow: inset -3px -3px 8px #ffffff, inset 3px 3px 8px #cccccc;
+  transition: box-shadow 200ms;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: inset -2px -2px 6px #ffffff, inset 2px 2px 6px #bbbbbb,
+    0 0 0 2px #5e747f44;
+}
+
+.input::placeholder {
+  color: #999;
+}
+
+.error {
+  box-shadow: inset -3px -3px 8px #ffffff, inset 3px 3px 8px #cccccc,
+    0 0 0 2px #e5c1bd;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.errorText {
+  color: #c5766d;
+  font-size: 0.85rem;
+  margin: 0;
+}
