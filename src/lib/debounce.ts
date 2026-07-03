@@ -1,9 +1,9 @@
-export function debounce<T extends (...args: never[]) => void>(
-  fn: T,
+export function debounce<Args extends unknown[]>(
+  fn: (...args: Args) => void,
   ms: number,
-): (...args: Parameters<T>) => void {
+): (...args: Args) => void {
   let isCooldown = false;
-  return (...args: Parameters<T>) => {
+  return (...args: Args) => {
     if (isCooldown) return;
     fn(...args);
     isCooldown = true;

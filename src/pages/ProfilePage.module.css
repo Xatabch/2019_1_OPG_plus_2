@@ -65,6 +65,13 @@
   justify-content: center;
 }
 
+.error {
+  margin: 0 0 12px;
+  color: #c0392b;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
 .settingsLink {
   position: absolute;
   top: 20px;

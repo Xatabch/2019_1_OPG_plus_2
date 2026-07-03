@@ -1,9 +1,0 @@
-.container_theme_service {
-    @media (min-width: $desktop-min-width) {
-        grid-template-columns: repeat(12, 1fr);
-    }
-
-    @media (min-width: $mobile-min-width) {
-        grid-template-columns: repeat(12, 1fr);
-    }
-}

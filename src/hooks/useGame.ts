@@ -10,7 +10,7 @@ import {
 import { clearGameState, loadGameState, saveGameState } from '../game/storage';
 import type { GameMode, GameState, Player } from '../game/types';
 import { BOARD_SIZE, createInitialState, DELAY_TIME } from '../game/types';
-import { debounce } from '../lib/debounce';
+import { useDebouncedCallback } from './useDebouncedCallback';
 
 type GameAction =
   | { type: 'POINTER_DOWN'; event: PointerEvent }
@@ -129,12 +129,9 @@ export function useGame() {
     dispatch({ type: 'POINTER_DOWN', event });
   }, [state.mode, state.currentPlayer]);
 
-  const onPointerMove = useCallback(
-    debounce((event: PointerEvent) => {
-      dispatch({ type: 'POINTER_MOVE', event });
-    }, DELAY_TIME),
-    [],
-  );
+  const onPointerMove = useDebouncedCallback((event: PointerEvent) => {
+    dispatch({ type: 'POINTER_MOVE', event });
+  }, DELAY_TIME);
 
   const onPointerUp = useCallback(() => {
     dispatch({ type: 'POINTER_UP' });

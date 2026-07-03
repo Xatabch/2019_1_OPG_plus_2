@@ -1,5 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import type { ReactNode } from 'react';
+import { LoadingSpinner } from '../ui/LoadingSpinner';
 import { useAuth } from '../../contexts/AuthContext';
 
 interface ProtectedRouteProps {
@@ -12,7 +13,7 @@ export function ProtectedRoute({ children, redirectTo = '/signin' }: ProtectedRo
   const location = useLocation();
 
   if (isLoading) {
-    return null;
+    return <LoadingSpinner label="Проверка сессии..." />;
   }
 
   if (!isAuthenticated) {
@@ -31,7 +32,7 @@ export function GuestRoute({ children, redirectTo = '/' }: GuestRouteProps) {
   const { isAuthenticated, isLoading } = useAuth();
 
   if (isLoading) {
-    return null;
+    return <LoadingSpinner label="Проверка сессии..." />;
   }
 
   if (isAuthenticated) {

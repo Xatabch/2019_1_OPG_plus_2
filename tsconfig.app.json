@@ -19,5 +19,5 @@
     "noUncheckedSideEffectImports": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["src/app/controller", "src/app/model", "src/app/view", "src/app/component", "src/app/event_emitter.js", "src/app/navigate_controller.js", "src/app/navigate_view.js", "src/app/paths.js", "src/blocks", "src/modules", "src/main.js", "src/scss"]
+  "exclude": ["src/**/*.test.ts"]
 }

@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { BOARD_SIZE } from '../../game/types';
+import { useFieldAnimation } from '../../hooks/useFieldAnimation';
 import { useGame } from '../../hooks/useGame';
 import { usePointerDraw } from '../../hooks/usePointerDraw';
 import { Controls } from '../Controls/Controls';
@@ -10,8 +11,6 @@ import styles from './GameBoard.module.css';
 
 export function GameBoard() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [lastFilledCells, setLastFilledCells] = useState<Set<number>>(new Set());
-  const prevFieldRef = useRef<string | null>(null);
 
   const {
     state,
@@ -23,35 +22,9 @@ export function GameBoard() {
     dismissWinner,
   } = useGame();
 
+  const lastFilledCells = useFieldAnimation(state.field);
+
   usePointerDraw(containerRef, { onPointerDown, onPointerMove, onPointerUp });
-
-  useEffect(() => {
-    const fieldKey = JSON.stringify(state.field);
-    if (prevFieldRef.current === null) {
-      prevFieldRef.current = fieldKey;
-      return;
-    }
-    if (fieldKey === prevFieldRef.current) return;
-
-    const prev = JSON.parse(prevFieldRef.current) as string[][];
-    const newCells = new Set<number>();
-
-    for (let r = 0; r < state.field.length; r++) {
-      for (let c = 0; c < state.field[r].length; c++) {
-        if (prev[r][c] === '*' && (state.field[r][c] === 'l' || state.field[r][c] === 'r')) {
-          newCells.add(r * BOARD_SIZE + c);
-        }
-      }
-    }
-
-    prevFieldRef.current = fieldKey;
-
-    if (newCells.size > 0) {
-      setLastFilledCells(newCells);
-      const timer = setTimeout(() => setLastFilledCells(new Set()), 400);
-      return () => clearTimeout(timer);
-    }
-  }, [state.field]);
 
   const leftActive = state.currentPlayer === 'l';
   const rightActive = state.currentPlayer === 'r';

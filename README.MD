@@ -25,8 +25,9 @@ https://github.com/go-park-mail-ru/2019_1_OPG_plus_2
 - **React 19** + **TypeScript**
 - **Vite 7** — сборка и dev-сервер
 - **React Router 7** — маршрутизация SPA
-- **CSS Modules** — neumorphic-дизайн из [colors](https://github.com/Xatabch/colors)
+- **CSS Modules** — neumorphic-дизайн
 - **Express 5** — раздача production-сборки
+- **Vitest** — unit-тесты
 - **ESLint 9** + **TypeScript** — линтинг и проверка типов
 
 ## Требования
@@ -53,10 +54,12 @@ Dev-сервер: http://localhost:5173
 | `npm start` | Сборка + Express-сервер (порт 8001) |
 | `npm run serve` | Только Express-сервер |
 | `npm run lint` | ESLint + TypeScript |
+| `npm test` | Vitest unit-тесты |
+| `npm run format` | Prettier форматирование |
 
 ## Переменные окружения
 
-Скопируйте `.env.example` в `.env.development` или `.env.production`:
+Скопируйте `.env.example` в `.env.development` (локально) или задайте переменные в CI/CD:
 
 | Переменная | Описание |
 |------------|----------|
@@ -65,6 +68,18 @@ Dev-сервер: http://localhost:5173
 | `VITE_MULTIPLAYER_HOST` | URL REST мультиплеера |
 | `VITE_MULTIPLAYER_WS` | WebSocket URL мультиплеера |
 
-## CI
+## Документация
 
-GitHub Actions (`.github/workflows/ci.yml`) — lint и build на push/PR.
+- [Архитектура](docs/architecture.md)
+- [REST API](docs/api.md)
+- [WebSocket протокол мультиплеера](docs/multiplayer.md)
+- [Changelog](CHANGELOG.md)
+
+## CI/CD
+
+GitHub Actions:
+
+- **CI** (`.github/workflows/ci.yml`) — lint, test, build на push/PR в `master` и `production`
+- **Deploy** (`.github/workflows/deploy.yml`) — деплой на production при push в `production`
+
+Secrets для deploy: `DEPLOY_SSH_KEY`, `PRODUCTION_MACHINE_ADDRESS`, `PRODUCTION_MACHINE_USERNAME`, `VITE_*`.

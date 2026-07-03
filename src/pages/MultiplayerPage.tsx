@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import {
   finishTurn,
   getBlock,
@@ -11,11 +11,11 @@ import {
 } from '../game/engine';
 import type { Coords, Field as GameField, GameState, Player } from '../game/types';
 import { BOARD_SIZE, createEmptyField, createInitialState, DELAY_TIME } from '../game/types';
-import { debounce } from '../lib/debounce';
+import { useDebouncedCallback } from '../hooks/useDebouncedCallback';
+import { useFieldAnimation } from '../hooks/useFieldAnimation';
 import { usePointerDraw } from '../hooks/usePointerDraw';
 import { useAuth } from '../contexts/AuthContext';
 import { HOST, HOST_MULTIPLAYER_WS } from '../config';
-import { GameBoard } from '../components/GameBoard/GameBoard';
 import { Field } from '../components/Field/Field';
 import { PlayerIndicator } from '../components/PlayerIndicator/PlayerIndicator';
 import { WinnerOverlay } from '../components/WinnerOverlay/WinnerOverlay';
@@ -86,6 +86,10 @@ function interpolateSteps(start: number, end: number): number[] {
   const blocks: number[] = [];
   for (let i = min; i <= max; i += BOARD_SIZE) blocks.push(i);
   return blocks;
+}
+
+function playerSide(username: string, players: MultiplayerPlayer[]): Player {
+  return username === players[0]?.username ? 'l' : 'r';
 }
 
 function multiplayerReducer(state: MultiplayerState, action: MultiplayerAction): MultiplayerState {
@@ -167,7 +171,9 @@ function MultiplayerContent() {
   const { user } = useAuth();
   const containerRef = useRef<HTMLDivElement>(null);
   const wsRef = useRef<WebSocket | null>(null);
-  const [lastFilledCells] = useState<Set<number>>(new Set());
+  const playersRef = useRef<MultiplayerPlayer[]>([]);
+  const stepsRef = useRef<Coords[]>([]);
+  const [connectionError, setConnectionError] = useState<string | null>(null);
 
   const initialState: MultiplayerState = {
     ...createInitialState('pvp'),
@@ -177,6 +183,15 @@ function MultiplayerContent() {
   };
 
   const [state, dispatch] = useReducer(multiplayerReducer, initialState);
+  const lastFilledCells = useFieldAnimation(state.field);
+
+  useEffect(() => {
+    playersRef.current = state.players;
+  }, [state.players]);
+
+  useEffect(() => {
+    stepsRef.current = state.steps;
+  }, [state.steps]);
 
   const isMyTurn =
     state.players.length >= 2 &&
@@ -187,6 +202,7 @@ function MultiplayerContent() {
   useEffect(() => {
     if (!roomId || !user?.username) return;
 
+    setConnectionError(null);
     const ws = new WebSocket(`${HOST_MULTIPLAYER_WS}/${roomId}/room`);
     wsRef.current = ws;
 
@@ -217,6 +233,7 @@ function MultiplayerContent() {
             if (players[1]?.username === user.username) {
               players = [players[1], players[0]];
             }
+            playersRef.current = players;
 
             const field = createEmptyField();
             for (const lock of ev.locked ?? []) {
@@ -247,8 +264,7 @@ function MultiplayerContent() {
               b % BOARD_SIZE,
             ] as Coords);
 
-            const remotePlayer: Player =
-              msg.user === state.players[0]?.username ? 'l' : 'r';
+            const remotePlayer = playerSide(msg.user ?? '', playersRef.current);
 
             dispatch({ type: 'REMOTE_MOVE', steps, player: remotePlayer });
           }
@@ -256,8 +272,7 @@ function MultiplayerContent() {
           if (msg.type === 'event' && msg.data?.event_type === 'win') {
             const ev = msg.data.event_data;
             const winnerName = ev?.winner;
-            const winner: Player =
-              winnerName === state.players[0]?.username ? 'l' : 'r';
+            const winner = playerSide(winnerName ?? '', playersRef.current);
             dispatch({
               type: 'WIN',
               winner,
@@ -268,6 +283,16 @@ function MultiplayerContent() {
         } catch {
           // ignore malformed messages
         }
+      }
+    };
+
+    ws.onerror = () => {
+      setConnectionError('Ошибка соединения с сервером');
+    };
+
+    ws.onclose = (event) => {
+      if (!event.wasClean) {
+        setConnectionError('Соединение с комнатой прервано');
       }
     };
 
@@ -284,16 +309,14 @@ function MultiplayerContent() {
     [isMyTurn],
   );
 
-  const onPointerMove = useCallback(
-    debounce((event: PointerEvent) => {
-      dispatch({ type: 'POINTER_MOVE', event });
-    }, DELAY_TIME),
-    [],
-  );
+  const onPointerMove = useDebouncedCallback((event: PointerEvent) => {
+    dispatch({ type: 'POINTER_MOVE', event });
+  }, DELAY_TIME);
 
   const onPointerUp = useCallback(() => {
-    if (state.steps.length >= 2 && wsRef.current && isMyTurn) {
-      const coords = state.steps.map(([x, y]) => ({ x, y }));
+    const steps = stepsRef.current;
+    if (steps.length >= 2 && wsRef.current && isMyTurn) {
+      const coords = steps.map(([x, y]) => ({ x, y }));
       wsRef.current.send(
         JSON.stringify({
           user: state.me,
@@ -305,7 +328,7 @@ function MultiplayerContent() {
       );
     }
     dispatch({ type: 'POINTER_UP' });
-  }, [state.steps, state.me, isMyTurn]);
+  }, [state.me, isMyTurn]);
 
   usePointerDraw(containerRef, { onPointerDown, onPointerMove, onPointerUp });
 
@@ -313,7 +336,7 @@ function MultiplayerContent() {
   const rightActive = state.currentPlayer === 'r';
 
   if (!roomId) {
-    return <GameBoard />;
+    return <Navigate to="/url" replace />;
   }
 
   return (
@@ -355,14 +378,19 @@ function MultiplayerContent() {
         </Modal>
       )}
 
+      {connectionError && (
+        <Modal>
+          <p className={styles.waitText}>{connectionError}</p>
+        </Modal>
+      )}
+
       {state.winner && (
-        <>
-          <WinnerOverlay
-            winner={state.winner}
-            mode="pvp"
-            onDismiss={() => dispatch({ type: 'DISMISS' })}
-          />
-        </>
+        <WinnerOverlay
+          winner={state.winner}
+          mode="pvp"
+          scoreChange={state.scoreChange}
+          onDismiss={() => dispatch({ type: 'DISMISS' })}
+        />
       )}
     </div>
   );
