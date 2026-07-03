@@ -7,7 +7,7 @@ on:
     branches: [master, production]
 
 jobs:
-  lint-and-build:
+  lint-test-build:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,5 +26,13 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Test
+        run: npm test
+
       - name: Build
         run: npm run build
+        env:
+          VITE_API_HOST: https://api.colors-game.ru
+          VITE_APP_HOST: https://colors-game.ru
+          VITE_MULTIPLAYER_HOST: https://api.colors-game.ru/game
+          VITE_MULTIPLAYER_WS: wss://api.colors-game.ru/game

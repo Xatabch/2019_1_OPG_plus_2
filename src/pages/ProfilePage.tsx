@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { deleteUser } from '../api/api';
 import { AppLayout } from '../components/layout/AppLayout';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
@@ -15,6 +16,8 @@ function ProfileContent() {
   const { user, loadUser, logout } = useAuth();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<UserData | null>(user);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   useEffect(() => {
     void loadUser().then((data) => {
@@ -25,6 +28,25 @@ function ProfileContent() {
   const handleLogout = async () => {
     await logout();
     navigate('/');
+  };
+
+  const handleDeleteAccount = async () => {
+    const confirmed = window.confirm(
+      'Удалить аккаунт без возможности восстановления?',
+    );
+    if (!confirmed) return;
+
+    setDeleting(true);
+    setDeleteError(null);
+    try {
+      await deleteUser();
+      await logout();
+      navigate('/');
+    } catch {
+      setDeleteError('Не удалось удалить аккаунт');
+    } finally {
+      setDeleting(false);
+    }
   };
 
   const avatarUrl = profile?.avatar ? `${HOST}${profile.avatar}` : defaultAvatar;
@@ -65,9 +87,14 @@ function ProfileContent() {
           </div>
         </div>
 
+        {deleteError && <p className={styles.error}>{deleteError}</p>}
+
         <div className={styles.actions}>
           <Button variant="secondary" onClick={handleLogout}>
             Выйти
+          </Button>
+          <Button variant="secondary" onClick={handleDeleteAccount} disabled={deleting}>
+            {deleting ? 'Удаление...' : 'Удалить аккаунт'}
           </Button>
         </div>
       </Card>

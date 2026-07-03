@@ -13,6 +13,7 @@ const PAGE_SIZE = 5;
 export function ScoreboardPage() {
   const [users, setUsers] = useState<UserData[]>([]);
   const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
 
   const loadPage = useCallback(async (p: number) => {
@@ -20,9 +21,11 @@ export function ScoreboardPage() {
     try {
       const data = await getUsers(PAGE_SIZE, p);
       setUsers(data.users ?? []);
+      setTotal(data.total ?? 0);
       setPage(p);
     } catch {
       setUsers([]);
+      setTotal(0);
     } finally {
       setLoading(false);
     }
@@ -31,6 +34,9 @@ export function ScoreboardPage() {
   useEffect(() => {
     void loadPage(1);
   }, [loadPage]);
+
+  const totalPages = total > 0 ? Math.ceil(total / PAGE_SIZE) : page;
+  const hasNextPage = total > 0 ? page < totalPages : users.length >= PAGE_SIZE;
 
   return (
     <AppLayout showBack backTo="/">
@@ -63,11 +69,14 @@ export function ScoreboardPage() {
           >
             ←
           </Button>
-          <span className={styles.pageNum}>Стр. {page}</span>
+          <span className={styles.pageNum}>
+            Стр. {page}
+            {total > 0 ? ` из ${totalPages}` : ''}
+          </span>
           <Button
             variant="secondary"
             onClick={() => loadPage(page + 1)}
-            disabled={users.length < PAGE_SIZE || loading}
+            disabled={!hasNextPage || loading}
           >
             →
           </Button>

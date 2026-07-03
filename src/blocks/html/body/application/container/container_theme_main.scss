@@ -1,7 +1,0 @@
-.container_theme_main {
-    grid-template-columns: repeat(12, 1fr);
-
-    @media (min-width: $mobile-layout) and (max-width: $desktop-layout) {
-        grid-template-rows: 1fr 8fr;
-    }
-}

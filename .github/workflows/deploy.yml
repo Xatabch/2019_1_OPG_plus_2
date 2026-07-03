@@ -1,0 +1,50 @@
+name: Deploy Production
+
+on:
+  push:
+    branches: [production]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_API_HOST: ${{ secrets.VITE_API_HOST }}
+          VITE_APP_HOST: ${{ secrets.VITE_APP_HOST }}
+          VITE_MULTIPLAYER_HOST: ${{ secrets.VITE_MULTIPLAYER_HOST }}
+          VITE_MULTIPLAYER_WS: ${{ secrets.VITE_MULTIPLAYER_WS }}
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "${{ secrets.PRODUCTION_MACHINE_ADDRESS }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy to production
+        env:
+          PRODUCTION_MACHINE_ADDRESS: ${{ secrets.PRODUCTION_MACHINE_ADDRESS }}
+          PRODUCTION_MACHINE_USERNAME: ${{ secrets.PRODUCTION_MACHINE_USERNAME }}
+        run: sh deploy_production.sh

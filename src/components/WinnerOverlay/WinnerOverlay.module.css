@@ -53,6 +53,14 @@
   color: #333;
 }
 
+.scoreChange {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #5e747f;
+}
+
 .button {
   font-family: Roboto, sans-serif;
   font-size: 1rem;

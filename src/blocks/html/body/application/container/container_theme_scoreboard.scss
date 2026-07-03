@@ -1,7 +1,0 @@
-.container_theme_scoreboard {
-    grid-template-columns: repeat(12, 1fr);
-
-    @media (min-width: $desktop-layout) {
-        grid-column-gap: 20px;
-    }
-}
