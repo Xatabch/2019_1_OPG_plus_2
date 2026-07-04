@@ -11,7 +11,10 @@
   cursor: pointer;
   box-shadow: -3px -3px 8px #ffffff, 3px 3px 8px #cccccc;
   transition: all 200ms;
-  font-size: 1.2rem;
+}
+
+.back:hover svg {
+  opacity: 1;
 }
 
 .back:hover {

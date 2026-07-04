@@ -1,15 +1,17 @@
 import { type ChangeEvent, type FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Camera } from 'lucide-react';
 import { ApiErrorResponse, updatePassword, updateUser, uploadAvatar } from '../api/api';
 import { AppLayout } from '../components/layout/AppLayout';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
+import { Icon } from '../components/ui/Icon';
+import iconStyles from '../components/ui/Icon.module.css';
 import { Input } from '../components/ui/Input';
 import { ProtectedRoute } from '../components/routing/ProtectedRoute';
 import { useAuth } from '../contexts/AuthContext';
 import { HOST } from '../config';
 import defaultAvatar from '../img/default_avatar.svg';
-import editIcon from '../img/edit.svg';
 import styles from './EditProfilePage.module.css';
 import authStyles from './AuthPages.module.css';
 
@@ -90,7 +92,7 @@ function EditProfileContent() {
             >
               <img src={avatarPreview} alt="" className={styles.avatar} />
               <div className={styles.editOverlay}>
-                <img src={editIcon} alt="" width={24} height={24} />
+                <Icon icon={Camera} size="lg" className={iconStyles.onDark} />
               </div>
             </div>
             <input

@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { LogOut, Settings, Trash2 } from 'lucide-react';
 import { deleteUser } from '../api/api';
 import { AppLayout } from '../components/layout/AppLayout';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
+import { Icon } from '../components/ui/Icon';
+import iconStyles from '../components/ui/Icon.module.css';
 import { ProtectedRoute } from '../components/routing/ProtectedRoute';
 import { useAuth } from '../contexts/AuthContext';
 import { HOST } from '../config';
 import type { UserData } from '../api/types';
 import defaultAvatar from '../img/default_avatar.svg';
-import settingsIcon from '../img/settings.svg';
 import styles from './ProfilePage.module.css';
 
 function ProfileContent() {
@@ -55,7 +57,7 @@ function ProfileContent() {
     <AppLayout showBack backTo="/">
       <Card centered className={styles.profileCard}>
         <Link to="/editme" className={styles.settingsLink} aria-label="Настройки">
-          <img src={settingsIcon} alt="" />
+          <Icon icon={Settings} className={iconStyles.muted} />
         </Link>
 
         {profile?.avatar ? (
@@ -91,9 +93,11 @@ function ProfileContent() {
 
         <div className={styles.actions}>
           <Button variant="secondary" onClick={handleLogout}>
+            <Icon icon={LogOut} size="sm" className={iconStyles.muted} />
             Выйти
           </Button>
           <Button variant="secondary" onClick={handleDeleteAccount} disabled={deleting}>
+            <Icon icon={Trash2} size="sm" className={iconStyles.muted} />
             {deleting ? 'Удаление...' : 'Удалить аккаунт'}
           </Button>
         </div>
