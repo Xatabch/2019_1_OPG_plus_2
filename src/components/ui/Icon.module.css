@@ -1,0 +1,16 @@
+.icon {
+  flex-shrink: 0;
+}
+
+.muted {
+  color: #333;
+  opacity: 0.7;
+}
+
+.onPrimary {
+  color: currentColor;
+}
+
+.onDark {
+  color: #fff;
+}

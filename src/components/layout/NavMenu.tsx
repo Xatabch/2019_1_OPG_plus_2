@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
+import { BookOpen, Trophy, User } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import profileIcon from '../../img/profile.svg';
-import trophyIcon from '../../img/trophy.svg';
-import rulesIcon from '../../img/rules.svg';
+import { Icon } from '../ui/Icon';
+import iconStyles from '../ui/Icon.module.css';
 import styles from './NavMenu.module.css';
 
 export function NavMenu() {
@@ -15,13 +15,13 @@ export function NavMenu() {
         className={[styles.link, !isAuthenticated && styles.hidden].filter(Boolean).join(' ')}
         aria-label="Профиль"
       >
-        <img src={profileIcon} alt="" />
+        <Icon icon={User} className={iconStyles.muted} />
       </Link>
       <Link to="/leaders" className={styles.link} aria-label="Таблица лидеров">
-        <img src={trophyIcon} alt="" />
+        <Icon icon={Trophy} className={iconStyles.muted} />
       </Link>
       <Link to="/rules" className={styles.link} aria-label="Правила">
-        <img src={rulesIcon} alt="" />
+        <Icon icon={BookOpen} className={iconStyles.muted} />
       </Link>
     </nav>
   );

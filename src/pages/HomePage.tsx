@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
+import { CirclePlay, LogIn, Users } from 'lucide-react';
 import { AppLayout } from '../components/layout/AppLayout';
 import { Button } from '../components/ui/Button';
+import { Icon } from '../components/ui/Icon';
+import iconStyles from '../components/ui/Icon.module.css';
 import { useAuth } from '../contexts/AuthContext';
-import singleplayerIcon from '../img/singleplayer.svg';
-import multiplayerIcon from '../img/multiplayer.svg';
-import loginIcon from '../img/login.svg';
 import styles from './HomePage.module.css';
 
 export function HomePage() {
@@ -20,7 +20,7 @@ export function HomePage() {
         <div className={styles.actions}>
           <Link to="/game">
             <Button variant="primary" size="large" fullWidth>
-              <img src={singleplayerIcon} alt="" width={20} height={20} />
+              <Icon icon={CirclePlay} size="sm" className={iconStyles.onPrimary} />
               Одиночная игра
             </Button>
           </Link>
@@ -28,14 +28,14 @@ export function HomePage() {
           {isAuthenticated ? (
             <Link to="/url">
               <Button variant="secondary" size="large" fullWidth>
-                <img src={multiplayerIcon} alt="" width={20} height={20} />
+                <Icon icon={Users} size="sm" className={iconStyles.muted} />
                 Мультиплеер
               </Button>
             </Link>
           ) : (
             <Link to="/signin">
               <Button variant="secondary" size="large" fullWidth>
-                <img src={loginIcon} alt="" width={20} height={20} />
+                <Icon icon={LogIn} size="sm" className={iconStyles.muted} />
                 Войти
               </Button>
             </Link>

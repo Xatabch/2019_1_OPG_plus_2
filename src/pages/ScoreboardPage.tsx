@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getUsers } from '../api/api';
 import type { UserData } from '../api/types';
 import { AppLayout } from '../components/layout/AppLayout';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
+import { Icon } from '../components/ui/Icon';
+import iconStyles from '../components/ui/Icon.module.css';
 import { HOST } from '../config';
 import defaultAvatar from '../img/default_avatar.svg';
 import styles from './ScoreboardPage.module.css';
@@ -66,8 +69,9 @@ export function ScoreboardPage() {
             variant="secondary"
             onClick={() => loadPage(page - 1)}
             disabled={page <= 1 || loading}
+            aria-label="Предыдущая страница"
           >
-            ←
+            <Icon icon={ChevronLeft} size="sm" className={iconStyles.muted} />
           </Button>
           <span className={styles.pageNum}>
             Стр. {page}
@@ -77,8 +81,9 @@ export function ScoreboardPage() {
             variant="secondary"
             onClick={() => loadPage(page + 1)}
             disabled={!hasNextPage || loading}
+            aria-label="Следующая страница"
           >
-            →
+            <Icon icon={ChevronRight} size="sm" className={iconStyles.muted} />
           </Button>
         </div>
       </Card>
